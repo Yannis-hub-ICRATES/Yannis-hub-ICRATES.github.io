@@ -1,0 +1,83 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "A simple bar chart showing the amount of sherds per site.",
+  "width": 425,
+  "height": 100,
+  "data": {
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/c4aced7255da3690e1a1f4566d73cc94/raw/58af1634a8a878f880bca569620433c9be921ac8/ICRATES_full.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "Standard_Form_Lower": "number",
+        "Standard_Form_Upper": "number",
+        "Longitude": "number",
+        "Latitude": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "joinaggregate": [
+        {"op": "count", "field": "ICRATES_ID", "as": "Total_Sherds"},
+        {"op": "distinct", "field": "Deposit_ID", "as": "Total_Deposits"},
+        {"op": "distinct", "field": "Location_specific", "as": "Total_Locations"},
+        {"op": "distinct", "field": "Publication_ID", "as": "Total_Publications"},
+        {"op": "distinct", "field": "Fabric_ID", "as": "Total_Fabrics"},
+        {"op": "distinct", "field": "Standard_Form_ID", "as": "Total_Forms"},
+        {"op": "distinct", "field": "OCK_ID", "as": "Total_OCK"}
+      ],
+
+      "groupby": ["Location_name"]
+    }
+  ],
+  "encoding": {
+    "x": {
+      "aggregate": "average",
+      "field": "Longitude",
+      "type": "quantitative",
+      "title": null,
+      "scale": {"domain": [32.3, 34.5]}
+    },
+    "y": {
+
+      "field": "Latitude",
+      "type": "quantitative",
+      "title": null,
+      "scale": {"domain": [34.5, 35.8]}
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "circle",
+        "size": 200,
+        "tooltip": true
+      },
+      "encoding": {
+        "tooltip": [
+          {"field": "Location_name", "title": "Site"},
+          {"field": "Total_Sherds", "title": "Sherds"},
+          {"field": "Total_Locations", "title": "Locations"},
+          {"field": "Total_Deposits", "title": "Deposits"},
+          {"field": "Total_Publications", "title": "Publications"},
+          {"field": "Total_Fabrics", "title": "Fabrics"},
+          {"field": "Total_Forms", "title": "Standard Forms"},
+          {"field": "Total_OCK", "title": "OCK"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "dx": 25,
+        "dy": 1,
+        "angle": 270
+      },
+      "encoding": {
+        "text": {"field": "Location_Abbreviation", "type": "nominal"}
+      }
+    }
+  ]
+}

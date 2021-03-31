@@ -1,0 +1,51 @@
+header {
+    background-color: rgba(135, 206, 250, 0.5);
+    text-align: center;
+    padding: 10px;
+}
+
+footer {
+    background-color: rgba(135, 206, 250, 0.5);
+    padding: 20px 30px;
+    height: 150px;
+}
+
+.test {
+    width: 400px;
+    height: 400px;
+}
+
+header p, h1 {
+    padding: 10px;
+}
+
+.btn {
+    transition-duration: 0.4s;
+}
+
+.btn:hover {
+    background-color: rgb(135, 206, 250);
+    color: white;
+}
+
+.btn:focus {
+    background-color: rgb(135, 206, 250);
+    color: white;
+}
+
+#vis2, #buttons, #window1 {
+    width: 100%;
+    border-right-style: solid;
+    border-color: rgba(135, 206, 250, 0.5);
+    border-width: thick;
+}
+
+.window {
+    min-width: 500px;
+    padding: 15px;
+}
+
+.map {
+    display: block;
+    padding-left: 25px;
+}

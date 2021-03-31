@@ -1,0 +1,94 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {"text": "Overview of Fabrics",
+    "align": "center",
+    "fontSize": 25,
+    "fontWeight": "normal",
+    "font": "arial"
+  },
+  "description": "Shows which fabrics are present in the dataset, and in which sites they occur.",
+  "width": "container",
+  "height": 400,
+  "data": {
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/c4aced7255da3690e1a1f4566d73cc94/raw/58af1634a8a878f880bca569620433c9be921ac8/ICRATES_full.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "joinaggregate": [
+        {"op": "distinct", "field": "Location_ID", "as": "Totals"},
+        {"op": "count", "field": "ICRATES_ID", "as": "Total_Sherds"}
+      ],
+      "groupby": ["Fabric"]
+    },
+    {
+      "joinaggregate": [
+        {"op": "distinct", "field": "ICRATES_ID", "as": "Location_sherds"}
+      ],
+      "groupby": ["Fabric", "Location_ID"]
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "Fabric",
+      "type": "nominal",
+      "title": "",
+      "sort": {"field": "Totals", "op": "min", "order": "descending"}
+    },
+    "x": {
+      "aggregate": "distinct",
+      "field": "Totals",
+      "type": "quantitative",
+      "title": "Total amount of sites",
+      "scale": {"domain": [0, 12]},
+      "stack": "zero"
+    },
+    "detail": {"field": "Location_ID"},
+    "order": {"field": "Location_sherds", "sort": "descending"}
+  },
+  "layer": [
+    {
+      "params": [
+        {
+        "name": "Harbour",
+        "select": {"type": "point", "fields":
+        ["Location_Harbour"]},
+        "bind": {"input": "select", "options": [null, "0", "1"], "name": "Harbour? (0/1)"}
+        }
+      ],
+      "mark": {"type": "bar", "tooltip": true},
+      "encoding": {
+        "color": {
+          "bin": true,
+          "field": "Location_sherds",
+          "type": "quantitative",
+          "legend": {
+            "title": "Sherds",
+            "direction": "vertical",
+            "orient": "right"
+          }
+        },
+
+        "tooltip": [
+          {"field": "Location_name", "title": "Site"},
+          {"aggregate": "distinct", "field": "Deposit_ID", "title": "Deposits"},
+          {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"}
+        ]
+      },
+      "transform": [{"filter": {"param": "Harbour"}}]
+    },
+    {
+      "mark": {"type": "text", "fontSize": 10, "dx": -15},
+      "encoding": {
+        "text": {"field": "Location_Abbreviation"},
+        "tooltip": [
+          {"field": "Location_name", "title": "Site"},
+          {"aggregate": "distinct", "field": "Deposit_ID", "title": "Deposits"},
+          {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"}
+        ]
+      },
+      "transform": [{"filter": {"param": "Harbour"}}]
+    }
+  ],
+  "config": {"axis": {"grid": true, "tickBand": "extent"}}
+}
