@@ -52,7 +52,7 @@
         {
         "name": "Harbour",
         "select": {"type": "point", "fields": ["Location_Harbour"]},
-          "bind": {"input": "select", "options": [null, "0", "1"]}
+          "bind": {"input": "select", "options": [null, "0", "1"], "name": "Harbour? (0/1)"}
         }
       ],
       "mark": {"type": "bar", "tooltip": true},
