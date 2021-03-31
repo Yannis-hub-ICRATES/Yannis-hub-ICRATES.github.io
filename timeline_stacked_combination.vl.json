@@ -1,0 +1,103 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {"text": "Timeline and Distribution of Main Fabric Groups",
+    "align": "center",
+    "anchor": "middle",
+    "fontSize": 25,
+    "fontWeight": "normal",
+    "font": "arial"
+  },
+  "data": {
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/c4aced7255da3690e1a1f4566d73cc94/raw/58af1634a8a878f880bca569620433c9be921ac8/ICRATES_full.csv",
+    "format": {
+      "type": "csv",
+      "parse": {"Standard_Form_Lower": "number","Standard_Form_Upper": "number"}
+    }
+  },
+  "params": [
+    {
+      "name": "Site_Selector",
+      "select": {
+        "type": "point",
+        "fields": ["Fabric"]
+      }
+    },
+    {
+      "name": "Harbour",
+      "select": {"type": "point", "fields": ["Location_Harbour"]},
+      "bind": {"input": "select", "options": [null, "0", "1"], "name": "Harbour? (0/1)"}
+    }
+  ],
+  "transform": [
+    {
+      "joinaggregate": [
+        {"op": "min", "field": "Standard_Form_Lower", "as": "Lower_date"},
+        {"op": "max", "field": "Standard_Form_Upper", "as": "Upper_date"}
+      ],
+      "groupby": ["Fabric"]
+    },
+    {"filter": {"field": "Lower_date", "valid": true}},
+    {"filter": {"field": "Standard_Form_Lower", "valid": true}},
+    {"filter": {"and": [
+      {"not": {"field": "Fabric", "equal": "ITS Arezzo"}
+      },
+      {"not": {"field": "Fabric", "equal": "ITS Arezzo?"}
+      },
+      {"not": {"field": "Fabric", "equal": "ITS Pisa"}
+      },
+      {"not": {"field": "Fabric", "equal": "ITS Pisa?"}
+      }
+    ]
+    }
+    },
+    {"filter": {"param": "Harbour"}}
+  ],
+  "vconcat": [
+    {
+      "width": 350,
+      "height": 125,
+      "mark": {"type": "bar"},
+      "encoding": {
+        "y": {"field": "Fabric", "type": "nominal", "sort": {"field": "Lower_date"}},
+        "x": {"field": "Lower_date", "type": "quantitative", "title": null},
+        "x2": {"field": "Upper_date", "type": "quantitative", "title":  ""},
+        "color": {
+          "condition":{
+            "param": "Site_Selector",
+            "field": "Fabric",
+            "type": "nominal",
+            "sort": {"field": "Lower_date"}
+          },
+          "value": "gainsboro"
+        },
+        "tooltip": [
+          {"field": "Fabric", "title": "Fabric" },
+          {"field": "Lower_date", "title": "Date range" },
+          {"field": "Upper_date", "title": " " },
+          {"aggregate": "distinct", "field": "Standard_Form_ID", "title": "Based on this many forms" }
+        ]
+      }
+    },
+    {
+      "width": 350,
+      "height": 300,
+      "mark": "bar",
+      "encoding": {
+        "y": {"aggregate": "count", "field": "ICRATES_ID", "title": null, "stack":  "normalize"},
+        "x": {"field": "Location_name", "title": null, "sort": {"field": "Fabric", "op": "distinct", "order": "descending"}},
+        "color": {
+          "condition":{
+            "param": "Site_Selector",
+            "field": "Fabric",
+            "type": "nominal"
+          },
+          "value": "gainsboro"
+        },
+        "tooltip": [
+          {"field": "Fabric"},
+          {"field": "Lower_date", "title": "Lower date"}],
+        "order": {"field": "Lower_date"}
+      }
+    }
+  ]
+}
