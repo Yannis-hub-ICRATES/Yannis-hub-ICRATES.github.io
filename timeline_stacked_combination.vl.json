@@ -36,6 +36,19 @@
       ],
       "groupby": ["Fabric"]
     },
+    {
+      "joinaggregate": [
+        {"op": "count", "field": "ICRATES_ID", "as": "Total_sherds"}
+      ],
+      "groupby": ["Location_name"]
+    },
+    {
+      "joinaggregate": [
+        {"op": "count", "field": "ICRATES_ID", "as": "Sherds_fabric"}
+      ],
+      "groupby": ["Fabric", "Location_name"]
+    },
+    {"calculate": "datum.Sherds_fabric / datum.Total_sherds * 100", "as": "Percentage"},
     {"filter": {"field": "Lower_date", "valid": true}},
     {"filter": {"field": "Standard_Form_Lower", "valid": true}},
     {"filter": {"and": [
@@ -95,7 +108,8 @@
         },
         "tooltip": [
           {"field": "Fabric"},
-          {"field": "Lower_date", "title": "Lower date"}],
+          {"field": "Percentage", "format": ".2f"}
+        ],
         "order": {"field": "Lower_date"}
       }
     }

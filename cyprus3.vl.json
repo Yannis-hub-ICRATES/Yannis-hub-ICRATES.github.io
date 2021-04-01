@@ -1,5 +1,5 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "A simple bar chart showing the amount of sherds per site.",
   "width": 425,
   "height": 100,
@@ -48,6 +48,13 @@
   },
   "layer": [
     {
+      "params": [
+        {
+          "name": "Harbour",
+          "select": {"type": "point", "fields": ["Location_Harbour"]},
+          "bind": {"input": "select", "options": [null, "0", "1"], "name": "Harbour? (0/1)"}
+        }
+      ],
       "mark": {
         "type": "circle",
         "size": 200,
@@ -64,7 +71,10 @@
           {"field": "Total_Forms", "title": "Standard Forms"},
           {"field": "Total_OCK", "title": "OCK"}
         ]
-      }
+      },
+      "transform": [
+        {"filter": {"param": "Harbour"}}
+      ]
     },
     {
       "mark": {
@@ -77,7 +87,10 @@
       },
       "encoding": {
         "text": {"field": "Location_Abbreviation", "type": "nominal"}
-      }
+      },
+      "transform": [
+        {"filter": {"param": "Harbour"}}
+      ]
     }
   ]
 }

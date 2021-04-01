@@ -1,17 +1,18 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {"text": "Deposits (Type)",
+  "title": {"text": "Overview of Fabrics",
     "align": "center",
     "fontSize": 25,
     "fontWeight": "normal",
     "font": "arial"
   },
-  "description": "Shows which deposit types are present per site.",
+  "description": "Shows which fabrics are present in the dataset, and in which sites they occur.",
   "width": "container",
   "height": 400,
   "data": {
     "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/53156a8fe914cc9cd234ce81807fbb73/raw/92dd759e0032df2b29a7bd53c97e7326f3fa729e/ICRATES_full2.csv",
-    "format": {"type": "csv"}
+    "format": {
+      "type": "csv"}
   },
   "transform": [
     {
@@ -19,18 +20,24 @@
         {"op": "distinct", "field": "Location_ID", "as": "Totals"},
         {"op": "count", "field": "ICRATES_ID", "as": "Total_Sherds"}
       ],
-      "groupby": ["Deposit_type"]
+      "groupby": ["Fabric"]
     },
     {
       "joinaggregate": [
         {"op": "distinct", "field": "ICRATES_ID", "as": "Location_sherds"}
       ],
-      "groupby": ["Deposit_type", "Location_ID"]
+      "groupby": ["Fabric", "Location_ID"]
+    },
+    {
+      "joinaggregate": [
+        {"op": "sum", "field": "Fabric_Uncertain", "as": "Uncertain_Sherds"}
+      ],
+      "groupby": ["Fabric", "Location_ID"]
     }
   ],
   "encoding": {
     "y": {
-      "field": "Deposit_type",
+      "field": "Fabric",
       "type": "nominal",
       "title": "",
       "sort": {"field": "Totals", "op": "min", "order": "descending"}
@@ -50,9 +57,16 @@
     {
       "params": [
         {
-        "name": "Harbour",
-        "select": {"type": "point", "fields": ["Location_Harbour"]},
+          "name": "Harbour",
+          "select": {"type": "point", "fields":
+          ["Location_Harbour"]},
           "bind": {"input": "select", "options": [null, "0", "1"], "name": "Harbour? (0/1)"}
+        },
+        {
+          "name": "Uncertain",
+          "select": {"type": "point", "fields":
+          ["Fabric_Uncertain"]},
+          "bind": {"input": "select", "options": [null, "1"], "name": "Uncertain? (0/1)"}
         }
       ],
       "mark": {"type": "bar", "tooltip": true},
@@ -67,31 +81,28 @@
             "orient": "right"
           }
         },
+
         "tooltip": [
           {"field": "Location_name", "title": "Site"},
           {"aggregate": "distinct", "field": "Deposit_ID", "title": "Deposits"},
-          {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"}
+          {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"},
+          {"field": "Uncertain_Sherds", "type": "quantitative", "title": "Amount of uncertain sherds"}
         ]
       },
-      "transform": [
-        {"filter": {"param": "Harbour"}}
-      ]
+      "transform": [{"filter": {"param": "Harbour"}}, {"filter": {"param": "Uncertain"}}]
     },
     {
       "mark": {"type": "text", "fontSize": 10, "dx": -15},
       "encoding": {
-        "text": {
-          "field": "Location_Abbreviation"
-        },
+        "text": {"field": "Location_Abbreviation"},
         "tooltip": [
           {"field": "Location_name", "title": "Site"},
           {"aggregate": "distinct", "field": "Deposit_ID", "title": "Deposits"},
-          {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"}
+          {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"},
+          {"field": "Uncertain_Sherds", "type": "quantitative", "title": "Amount of uncertain sherds"}
         ]
       },
-      "transform": [
-        {"filter": {"param": "Harbour"}}
-      ]
+      "transform": [{"filter": {"param": "Harbour"}}, {"filter": {"param": "Uncertain"}}]
     }
   ],
   "config": {"axis": {"grid": true, "tickBand": "extent"}}
