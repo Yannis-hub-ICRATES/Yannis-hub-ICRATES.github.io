@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ICRATES Cyprus Subset Explorer</title>
+    <!-- Vega Lite libraries -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
@@ -12,10 +13,12 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/newstyle.css">
+    <!-- Own CSS -->
+    <link rel="stylesheet" href="styles/mainpage.css">
     <!-- Own scripts -->
-    <script type="text/javascript" src="scripts/button_scripttest.js"></script>
+    <script type="text/javascript" src="scripts/buttons.js"></script>
 </head>
+
 <body>
 <header>
     <div class="row">
@@ -23,31 +26,36 @@
             <br>
             <h1>Welcome to the Cyprus subset!</h1>
             <br>
-            <p>In the following screens, different aspects of the ICRATES data from Cyprus are visualized.</p>
+            <p>In the windows below, different aspects of the ICRATES data from Cyprus are visualized.</p>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <p class="text-header">In the lefthand column, you can find an overview of all records associated with each of the 11
-                sites, as well as visualizations regarding the origins of the data, such as the sites, the deposits,
-                and the publications.</p>
+            <p class="text-header">
+                In the left-hand column, you can find an overview of all records associated with each of the 11
+                sites, as well as visualizations related to the origins of the data, and more specifically, the sites, deposits,
+                and publications from which they were drawn.
+            </p>
         </div>
-        <div class="col-md-6 text-header">
-            <p class="text-header">In the righthand column, the focus lies on the tablewares present in the dataset, and
-                especially their distribution over the sites and over time.</p>
+        <div class="col-md-6">
+            <p class="text-header">
+                In the right-hand column, the focus lies on the tablewares present in the dataset, and
+                especially their distribution over the sites and over time. The distribution is displayed
+                both in absolute numbers as in proportions, as the amount of sherds per site is only a
+                representative sample of the assemblage of each site.
+            </p>
         </div>
     </div>
 </header>
+
 <div class="container">
     <div class="row">
-        <!-- <div class="col-1">space</div> -->
-        <div class="col-md-6 window" id="window1">
-            <img src="images/Map2.png" alt="The map of Cyprus" width="465" height="350" class="map"/>
-            <div id="vis5"></div>
-            <!-- <img src="images/cyprus_test.png" alt="The map of Cyprus" width="525" height="450"/> -->
+        <div class="col-md-6 window" id="first_window">
+            <img src="images/map_of_cyprus.png" alt="The map of Cyprus" width="465" height="350" class="map"/>
+            <div id="vis1"></div>
         </div>
-        <div class="col-md-6 window" id="vis"></div>
-        <!-- <div class="col-1">space</div> -->
+        <div class="col-md-6 window" id="vis2">
+        </div>
     </div>
     <div class="row">
         <div class="col-md-6" id="buttons">
@@ -58,10 +66,8 @@
         </div>
     </div>
     <div class="row">
-        <!-- <div class="col-1">space</div> -->
-        <div class="col-md-6 window" id="vis2"></div>
         <div class="col-md-6 window" id="vis3"></div>
-        <!-- <div class="col-1">space</div> -->
+        <div class="col-md-6 window" id="vis4"></div>
     </div>
 </div>
 
@@ -86,19 +92,16 @@
 </footer>
 
 <script>
-    const spec = "fabrics_overview_filters.vl.json",
-        spec2 = "publications_selectors.vl.json",
-        spec3 = "timeline_stacked_combination.vl.json",
-        spec4 = "deposits_selector.vl.json",
-        spec5 = "cyprus3.vl.json"
-    vegaEmbed('#vis', spec)
+    const spec = "overview_cyprus.vl.json",
+        spec2 = "fabrics_overview.vl.json",
+        spec3 = "publications_overview.vl.json",
+        spec4 = "fabric_distribution.vl.json"
+    vegaEmbed('#vis1', spec)
     vegaEmbed('#vis2', spec2)
     vegaEmbed('#vis3', spec3)
     vegaEmbed('#vis4', spec4)
-    vegaEmbed('#vis5', spec5)
         .catch(console.warn);
 </script>
-
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -111,8 +114,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-
-
-
 </body>
+
 </html>

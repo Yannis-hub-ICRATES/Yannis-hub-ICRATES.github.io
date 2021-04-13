@@ -1,0 +1,131 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Publications",
+    "align": "center",
+    "fontSize": 25,
+    "fontWeight": "normal",
+    "font": "arial"
+  },
+  "description": "Shows the amount of publications for each site.",
+  "width": "container",
+  "height": 400,
+  "data": {
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/53156a8fe914cc9cd234ce81807fbb73/raw/92dd759e0032df2b29a7bd53c97e7326f3fa729e/ICRATES_full2.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "joinaggregate": [
+        {"op": "distinct", "field": "Publication_ID", "as": "Totals"},
+        {"op": "count", "field": "ICRATES_ID", "as": "Total_Sherds"}
+      ],
+      "groupby": ["Location_name"]
+    },
+    {
+      "joinaggregate": [
+        {"op": "distinct", "field": "ICRATES_ID", "as": "Publ_Sherds"}
+      ],
+      "groupby": ["Publication_ID"]
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Location_name",
+      "type": "nominal",
+      "title": "",
+      "sort": {
+        "field": "Totals",
+        "op": "min",
+        "order": "descending"
+      }
+    },
+    "y": {
+      "aggregate": "distinct",
+      "field": "Totals",
+      "type": "quantitative",
+      "title": "Total amount of publications",
+      "scale": {"domain": [0, 12]},
+      "stack": "zero"
+    },
+    "detail": {"field": "Publication_ID"},
+    "order": {"field": "Publication_Year_of_Publication"}
+  },
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "Excavation",
+          "select": {"type": "point", "fields": ["Publication_Excavation"]},
+          "bind": {"input": "select", "options": [null, "0", "1"], "name": "Contains excavation material?"}
+        },
+        {
+          "name": "Survey",
+          "select": {"type": "point", "fields": ["Publication_Survey"]},
+          "bind": {"input": "select", "options": [null, "0", "1"], "name": "Contains survey material?"}
+        },
+        {
+          "name": "Quantification",
+          "select": {"type": "point", "fields": ["Publication_Quantification"]},
+          "bind": {"input": "select", "options": [null, "0", "1"], "name": "Is a Quantification?"}
+        }
+      ],
+      "mark": {"type": "bar", "tooltip": true},
+      "encoding": {
+        "color": {
+          "bin": true,
+          "field": "Publ_Sherds", "type": "quantitative",
+          "legend": {
+            "title": "Sherds",
+            "direction": "vertical",
+            "orient": "right"
+          }
+        },
+        "tooltip": [
+          {"field": "Publication_Year_of_Publication", "type": "quantitative", "title": "Year of publication"},
+          {"field": "Publ_Sherds", "type": "quantitative", "title": "Sherds"},
+          {"field": "Publication_Name", "title": "Name"},
+          {"field": "Publication_ID", "title": "ID"},
+          {"field": "Publication_Years_of_Activity", "title": "Years of activity"},
+          {"field": "Publication_Excavation", "title": "Excavation material?"},
+          {"field": "Publication_Survey", "title": "Survey material?"},
+          {"field": "Publication_Quantification", "title": "Quantification?"},
+          {"field": "Publication_Catalogue", "title": "Catalogue?"}
+        ]
+      },
+      "transform": [
+        {"filter": {"param": "Excavation"}},
+        {"filter": {"param": "Survey"}},
+        {"filter": {"param": "Quantification"}}
+      ]
+    },
+    {
+      "mark": {"type": "text", "fontSize": 10, "dy": 18},
+      "encoding": {
+        "text": {
+          "field": "Publication_Year_of_Publication",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {"field": "Publication_Year_of_Publication", "type": "quantitative", "title": "Year of publication"},
+          {"field": "Publ_Sherds", "type": "quantitative", "title": "Sherds"},
+          {"field": "Publication_Name", "title": "Name"},
+          {"field": "Publication_ID", "title": "ID"},
+          {"field": "Publication_Years_of_Activity", "title": "Years of activity"},
+          {"field": "Publication_Excavation", "title": "Excavation material?"},
+          {"field": "Publication_Survey", "title": "Survey material?"},
+          {"field": "Publication_Quantification", "title": "Quantification?"},
+          {"field": "Publication_Catalogue", "title": "Catalogue?"}
+        ]
+      },
+      "transform": [
+        {"filter": {"param": "Excavation"}},
+        {"filter": {"param": "Survey"}},
+        {"filter": {"param": "Quantification"}}
+      ]
+    }
+  ],
+  "config": {
+    "axis": {"grid": true, "tickBand": "extent"}
+  }
+}

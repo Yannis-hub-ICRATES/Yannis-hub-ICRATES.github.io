@@ -1,0 +1,95 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Scatter plot of the sites on Cyprus, based on their coordinates.",
+  "width": 425,
+  "height": 100,
+  "data": {
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/53156a8fe914cc9cd234ce81807fbb73/raw/92dd759e0032df2b29a7bd53c97e7326f3fa729e/ICRATES_full2.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "Standard_Form_Lower": "number",
+        "Standard_Form_Upper": "number",
+        "Longitude": "number",
+        "Latitude": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "joinaggregate": [
+        {"op": "count", "field": "ICRATES_ID", "as": "Total_Sherds"},
+        {"op": "distinct", "field": "Deposit_ID", "as": "Total_Deposits"},
+        {"op": "distinct", "field": "Location_specific", "as": "Total_Locations"},
+        {"op": "distinct", "field": "Publication_ID", "as": "Total_Publications"},
+        {"op": "distinct", "field": "Fabric_ID", "as": "Total_Fabrics"},
+        {"op": "distinct", "field": "Standard_Form_ID", "as": "Total_Forms"},
+        {"op": "distinct", "field": "OCK_ID", "as": "Total_OCK"}
+      ],
+      "groupby": ["Location_name"]
+    }
+  ],
+  "encoding": {
+    "x": {
+      "aggregate": "average",
+      "field": "Longitude",
+      "type": "quantitative",
+      "title": null,
+      "scale": {"domain": [32.3, 34.5]}
+    },
+    "y": {
+
+      "field": "Latitude",
+      "type": "quantitative",
+      "title": null,
+      "scale": {"domain": [34.5, 35.8]}
+    }
+  },
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "Harbour",
+          "select": {"type": "point", "fields": ["Location_Harbour"]},
+          "bind": {"input": "select", "options": [null, "0", "1"], "name": "Harbour? (0/1)"}
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "size": 200,
+        "tooltip": true
+      },
+      "encoding": {
+        "tooltip": [
+          {"field": "Location_name", "title": "Site"},
+          {"field": "Total_Sherds", "title": "Sherds"},
+          {"field": "Total_Locations", "title": "Locations"},
+          {"field": "Total_Deposits", "title": "Deposits"},
+          {"field": "Total_Publications", "title": "Publications"},
+          {"field": "Total_Fabrics", "title": "Fabrics"},
+          {"field": "Total_Forms", "title": "Standard Forms"},
+          {"field": "Total_OCK", "title": "OCK stamps"}
+        ]
+      },
+      "transform": [
+        {"filter": {"param": "Harbour"}}
+      ]
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "dx": 25,
+        "dy": 1,
+        "angle": 270
+      },
+      "encoding": {
+        "text": {"field": "Location_Abbreviation", "type": "nominal"}
+      },
+      "transform": [
+        {"filter": {"param": "Harbour"}}
+      ]
+    }
+  ]
+}
