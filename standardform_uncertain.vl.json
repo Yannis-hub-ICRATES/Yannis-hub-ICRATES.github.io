@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A simple bar chart with embedded data.",
+  "title": {
+    "text": "Sherds with Uncertain Standard Form",
+    "align": "center",
+    "fontSize": 25,
+    "fontWeight": "normal",
+    "font": "arial"
+  },
+  "width": "container",
+  "height": 400,
+  "data": {
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/4b6fec6fbf1e456f4e2227bd2d4962ea/raw/7f2c8edb3706c821a510e2d72836a0cf94a99cbd/ICRATES_full5.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "ICRATES_ID": "number"
+      }
+    }
+  },
+  "transform": [
+    {"filter": {"field": "Standard_Form_Publication_Uncertain", "equal": "Yes"}},
+    {
+      "joinaggregate": [
+        {"op": "count", "field": "ICRATES_ID", "as": "Sherds"}
+      ],
+      "groupby": ["Location_ID", "Fabric"]
+    },
+    {
+      "joinaggregate": [
+        {"op": "count", "field": "ICRATES_ID", "as": "Sherds_total"}
+      ],
+      "groupby": ["Fabric"]
+    },
+    {"filter": {"param": "Uncertain"}}
+  ],
+  "params": [
+    {
+      "name": "Uncertain",
+      "select": {"type": "point", "fields":
+      ["Fabric_Uncertain"]},
+      "bind": {"input": "select", "options": [null, "Yes"], "name": "Also has uncertain fabric?"}
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "y": {"field": "Fabric", "type": "nominal", "title": null, "sort": {"field": "Sherds_total", "order": "descending"}},
+    "x": {"aggregate": "count", "field": "ICRATES_ID", "type": "quantitative", "title": "Amount of sherds"},
+    "color": {
+      "bin": true,
+      "field": "Sherds",
+      "type": "quantitative",
+      "legend": {
+        "title": "Sherds"
+      }
+    },
+    "detail": {"field": "Location_ID"},
+    "order": {"field": "Sherds", "sort": "descending"},
+    "tooltip": [
+      {"field": "Location_name", "title": "Site"},
+      {"aggregate": "distinct", "field": "Deposit_ID", "title": "Deposits"},
+      {"aggregate": "count", "field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"}
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Deposits",
+    "text": "Deposits (Formation)",
     "align": "center",
     "fontSize": 25,
     "fontWeight": "normal",
@@ -11,7 +11,7 @@
   "width": "container",
   "height": 400,
   "data": {
-    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/8d2604162a768ae6948e60738602aced/raw/3c32296d7e88622b78ab3f73aa64b26b1fcdc455/ICRATES_full6",
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/4b6fec6fbf1e456f4e2227bd2d4962ea/raw/7f2c8edb3706c821a510e2d72836a0cf94a99cbd/ICRATES_full5.csv",
     "format": {"type": "csv"}
   },
   "transform": [
@@ -20,18 +20,18 @@
         {"op": "distinct", "field": "Location_ID", "as": "Totals"},
         {"op": "count", "field": "ICRATES_ID", "as": "Total_Sherds"}
       ],
-      "groupby": ["Deposit_type"]
+      "groupby": ["Deposit_Formation"]
     },
     {
       "joinaggregate": [
         {"op": "distinct", "field": "ICRATES_ID", "as": "Location_sherds"}
       ],
-      "groupby": ["Deposit_type", "Location_ID"]
+      "groupby": ["Deposit_Formation", "Location_ID"]
     }
   ],
   "encoding": {
     "y": {
-      "field": "Deposit_type",
+      "field": "Deposit_Formation",
       "type": "nominal",
       "title": "",
       "sort": {"field": "Totals", "op": "min", "order": "descending"}
@@ -54,16 +54,6 @@
           "name": "Harbour",
           "select": {"type": "point", "fields": ["Location_Harbour"]},
           "bind": {"input": "select", "options": [null, "Inland site", "Harbour"], "name": "Harbour filter:"}
-        },
-        {
-          "name": "Nature",
-          "select": {"type": "point", "fields": ["Deposit_Nature_Deposit"]},
-          "bind": {"input": "select", "options": [null, "Not specified", "open", "closed", "Mixed"], "name": "Nature:"}
-        },
-        {
-          "name": "Formation",
-          "select": {"type": "point", "fields": ["Deposit_Formation"]},
-          "bind": {"input": "select", "options": [null, "Not specified", "primary", "secondary", "mixed"], "name": "Formation:"}
         },
         {
           "name": "Site_filter",
@@ -90,8 +80,6 @@
         ]
       },
       "transform": [
-        {"filter": {"param": "Formation"}},
-        {"filter": {"param": "Nature"}},
         {"filter": {"param": "Harbour"}},
         {"filter": {"param": "Site_filter"}}
       ]
@@ -109,8 +97,6 @@
         ]
       },
       "transform": [
-        {"filter": {"param": "Formation"}},
-        {"filter": {"param": "Nature"}},
         {"filter": {"param": "Harbour"}},
         {"filter": {"param": "Site_filter"}}
       ]

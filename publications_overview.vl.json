@@ -11,7 +11,7 @@
   "width": "container",
   "height": 400,
   "data": {
-    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/53156a8fe914cc9cd234ce81807fbb73/raw/92dd759e0032df2b29a7bd53c97e7326f3fa729e/ICRATES_full2.csv",
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/4b6fec6fbf1e456f4e2227bd2d4962ea/raw/7f2c8edb3706c821a510e2d72836a0cf94a99cbd/ICRATES_full5.csv",
     "format": {"type": "csv"}
   },
   "transform": [
@@ -57,17 +57,22 @@
         {
           "name": "Excavation",
           "select": {"type": "point", "fields": ["Publication_Excavation"]},
-          "bind": {"input": "select", "options": [null, "0", "1"], "name": "Contains excavation material?"}
+          "bind": {"input": "select", "options": [null, "No", "Yes"], "name": "Contains excavation material?"}
         },
         {
           "name": "Survey",
           "select": {"type": "point", "fields": ["Publication_Survey"]},
-          "bind": {"input": "select", "options": [null, "0", "1"], "name": "Contains survey material?"}
+          "bind": {"input": "select", "options": [null, "No", "Yes"], "name": "Contains survey material?"}
         },
         {
           "name": "Quantification",
           "select": {"type": "point", "fields": ["Publication_Quantification"]},
-          "bind": {"input": "select", "options": [null, "0", "1"], "name": "Is a Quantification?"}
+          "bind": {"input": "select", "options": [null, "No", "Yes"], "name": "Is a Quantification?"}
+        },
+        {
+          "name": "Catalogue",
+          "select": {"type": "point", "fields": ["Publication_Catalogue"]},
+          "bind": {"input": "select", "options": [null, "No", "Yes"], "name": "Is a Catalogue?"}
         }
       ],
       "mark": {"type": "bar", "tooltip": true},
@@ -96,7 +101,8 @@
       "transform": [
         {"filter": {"param": "Excavation"}},
         {"filter": {"param": "Survey"}},
-        {"filter": {"param": "Quantification"}}
+        {"filter": {"param": "Quantification"}},
+        {"filter": {"param": "Catalogue"}}
       ]
     },
     {
@@ -121,7 +127,8 @@
       "transform": [
         {"filter": {"param": "Excavation"}},
         {"filter": {"param": "Survey"}},
-        {"filter": {"param": "Quantification"}}
+        {"filter": {"param": "Quantification"}},
+        {"filter": {"param": "Catalogue"}}
       ]
     }
   ],

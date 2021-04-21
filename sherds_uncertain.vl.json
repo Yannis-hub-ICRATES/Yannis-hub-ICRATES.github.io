@@ -1,37 +1,45 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Deposits",
+    "text": "Sherds with uncertain Standard Form",
     "align": "center",
     "fontSize": 25,
     "fontWeight": "normal",
     "font": "arial"
   },
-  "description": "Shows which deposit types are present per site.",
+  "description": "Shows the sherds that have an uncertain standard form, and where they occur.",
   "width": "container",
   "height": 400,
   "data": {
-    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/8d2604162a768ae6948e60738602aced/raw/3c32296d7e88622b78ab3f73aa64b26b1fcdc455/ICRATES_full6",
-    "format": {"type": "csv"}
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/4b6fec6fbf1e456f4e2227bd2d4962ea/raw/7f2c8edb3706c821a510e2d72836a0cf94a99cbd/ICRATES_full5.csv",
+    "format": {
+      "type": "csv"}
   },
   "transform": [
+    {"filter": {"field": "Standard_Form_Publication_Uncertain", "equal": "Yes"}},
     {
       "joinaggregate": [
         {"op": "distinct", "field": "Location_ID", "as": "Totals"},
         {"op": "count", "field": "ICRATES_ID", "as": "Total_Sherds"}
       ],
-      "groupby": ["Deposit_type"]
+      "groupby": ["Fabric"]
     },
     {
       "joinaggregate": [
         {"op": "distinct", "field": "ICRATES_ID", "as": "Location_sherds"}
       ],
-      "groupby": ["Deposit_type", "Location_ID"]
+      "groupby": ["Fabric", "Location_ID"]
+    },
+    {
+      "joinaggregate": [
+        {"op": "sum", "field": "Fabric_Uncertain", "as": "Uncertain_Sherds"}
+      ],
+      "groupby": ["Fabric", "Location_ID"]
     }
   ],
   "encoding": {
     "y": {
-      "field": "Deposit_type",
+      "field": "Fabric",
       "type": "nominal",
       "title": "",
       "sort": {"field": "Totals", "op": "min", "order": "descending"}
@@ -41,7 +49,7 @@
       "field": "Totals",
       "type": "quantitative",
       "title": "Total amount of sites",
-      "scale": {"domain": [0, 12]},
+      "scale": {"domain": [0, 6]},
       "stack": "zero"
     },
     "detail": {"field": "Location_ID"},
@@ -52,23 +60,20 @@
       "params": [
         {
           "name": "Harbour",
-          "select": {"type": "point", "fields": ["Location_Harbour"]},
-          "bind": {"input": "select", "options": [null, "Inland site", "Harbour"], "name": "Harbour filter:"}
-        },
-        {
-          "name": "Nature",
-          "select": {"type": "point", "fields": ["Deposit_Nature_Deposit"]},
-          "bind": {"input": "select", "options": [null, "Not specified", "open", "closed", "Mixed"], "name": "Nature:"}
-        },
-        {
-          "name": "Formation",
-          "select": {"type": "point", "fields": ["Deposit_Formation"]},
-          "bind": {"input": "select", "options": [null, "Not specified", "primary", "secondary", "mixed"], "name": "Formation:"}
+          "select": {"type": "point", "fields":
+          ["Location_Harbour"]},
+          "bind": {"input": "select", "options": [null, "Inland site", "Harbour"], "name": "Harbour filter"}
         },
         {
           "name": "Site_filter",
           "select": {"type": "point", "fields": ["Location_name"]},
           "bind": {"input": "select", "options": [null, "Paphos", "Amathous", "Panayia Ematousa", "Kopetra", "Palaipaphos (area)", "Ayios Philon", "Maroni Petrera", "Salamis/Constantia", "Kourion", "Kition", "Limassol"], "name": "Filter on site:"}
+        },
+        {
+          "name": "Uncertain",
+          "select": {"type": "point", "fields":
+          ["Fabric_Uncertain"]},
+          "bind": {"input": "select", "options": [null, "Yes"], "name": "Also has uncertain fabric?"}
         }
       ],
       "mark": {"type": "bar", "tooltip": true},
@@ -90,18 +95,15 @@
         ]
       },
       "transform": [
-        {"filter": {"param": "Formation"}},
-        {"filter": {"param": "Nature"}},
         {"filter": {"param": "Harbour"}},
-        {"filter": {"param": "Site_filter"}}
+        {"filter": {"param": "Site_filter"}},
+        {"filter": {"param": "Uncertain"}}
       ]
     },
     {
-      "mark": {"type": "text", "fontSize": 10, "dx": -15},
+      "mark": {"type": "text", "fontSize": 10, "dx": -23},
       "encoding": {
-        "text": {
-          "field": "Location_Abbreviation"
-        },
+        "text": {"field": "Location_Abbreviation"},
         "tooltip": [
           {"field": "Location_name", "title": "Site"},
           {"aggregate": "distinct", "field": "Deposit_ID", "title": "Deposits"},
@@ -109,10 +111,9 @@
         ]
       },
       "transform": [
-        {"filter": {"param": "Formation"}},
-        {"filter": {"param": "Nature"}},
         {"filter": {"param": "Harbour"}},
-        {"filter": {"param": "Site_filter"}}
+        {"filter": {"param": "Site_filter"}},
+        {"filter": {"param": "Uncertain"}}
       ]
     }
   ],

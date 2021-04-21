@@ -11,7 +11,7 @@
   "width": "container",
   "height": 400,
   "data": {
-    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/53156a8fe914cc9cd234ce81807fbb73/raw/92dd759e0032df2b29a7bd53c97e7326f3fa729e/ICRATES_full2.csv",
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/4b6fec6fbf1e456f4e2227bd2d4962ea/raw/7f2c8edb3706c821a510e2d72836a0cf94a99cbd/ICRATES_full5.csv",
     "format": {
       "type": "csv"}
   },
@@ -61,13 +61,7 @@
           "name": "Harbour",
           "select": {"type": "point", "fields":
           ["Location_Harbour"]},
-          "bind": {"input": "select", "options": [null, "0", "1"], "name": "Harbour? (0/1)"}
-        },
-        {
-          "name": "Uncertain",
-          "select": {"type": "point", "fields":
-          ["Fabric_Uncertain"]},
-          "bind": {"input": "select", "options": [null, "1"], "name": "Uncertain? (0/1)"}
+          "bind": {"input": "select", "options": [null, "Inland site", "Harbour"], "name": "Harbour filter"}
         },
         {
           "name": "Site_filter",
@@ -90,13 +84,11 @@
         "tooltip": [
           {"field": "Location_name", "title": "Site"},
           {"aggregate": "distinct", "field": "Deposit_ID", "title": "Deposits"},
-          {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"},
-          {"field": "Uncertain_Sherds", "type": "quantitative", "title": "Amount of uncertain sherds"}
+          {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"}
         ]
       },
       "transform": [
         {"filter": {"param": "Harbour"}},
-        {"filter": {"param": "Uncertain"}},
         {"filter": {"param": "Site_filter"}}
       ]
     },
@@ -107,13 +99,11 @@
         "tooltip": [
           {"field": "Location_name", "title": "Site"},
           {"aggregate": "distinct", "field": "Deposit_ID", "title": "Deposits"},
-          {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"},
-          {"field": "Uncertain_Sherds", "type": "quantitative", "title": "Amount of uncertain sherds"}
+          {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"}
         ]
       },
       "transform": [
         {"filter": {"param": "Harbour"}},
-        {"filter": {"param": "Uncertain"}},
         {"filter": {"param": "Site_filter"}}
       ]
     }

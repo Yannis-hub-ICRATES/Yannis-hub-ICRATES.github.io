@@ -1,0 +1,43 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A simple bar chart with embedded data.",
+  "width": "container",
+  "height": 200,
+  "data": {
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/4b6fec6fbf1e456f4e2227bd2d4962ea/raw/7f2c8edb3706c821a510e2d72836a0cf94a99cbd/ICRATES_full5.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "ICRATES_ID": "number"
+      }
+    }
+  },
+  "transform": [
+    {"filter": {"field": "Fabric_Uncertain", "equal": "Yes"}},{
+      "joinaggregate": [
+        {"op": "count", "field": "ICRATES_ID", "as": "Sherds"}
+      ],
+      "groupby": ["Location_ID", "Fabric"]
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "y": {"field": "Fabric", "type": "nominal", "title": null, "sort": "descending"},
+    "x": {"aggregate": "count", "field": "ICRATES_ID", "type": "quantitative", "title": "Amount of sherds"},
+    "color": {
+      "bin": true,
+      "field": "Sherds",
+      "type": "quantitative",
+      "legend": {
+        "title": "Sherds"
+      }
+    },
+    "detail": {"field": "Location_ID"},
+    "order": {"field": "x"},
+    "tooltip": [
+      {"field": "Location_name", "title": "Site"},
+      {"aggregate": "distinct", "field": "Deposit_ID", "title": "Deposits"},
+      {"aggregate": "count", "field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"}
+    ]
+  }
+}

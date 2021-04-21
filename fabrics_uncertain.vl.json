@@ -1,0 +1,53 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/4b6fec6fbf1e456f4e2227bd2d4962ea/raw/7f2c8edb3706c821a510e2d72836a0cf94a99cbd/ICRATES_full5.csv",
+    "format": {
+      "type": "csv"}
+  },
+  "transform": [
+    {
+      "joinaggregate": [
+        {"op": "count", "field": "ICRATES_ID", "as": "Sherds"}
+      ],
+      "groupby": ["Location_Abbreviation"]
+    },
+    {
+      "joinaggregate": [
+        {"op": "count", "field": "ICRATES_ID", "as": "Uncertain_Sherds"}
+      ],
+      "groupby": ["Fabric_Uncertain", "Location_Abbreviation"]
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "column": {
+      "field": "Location_Abbreviation", "type": "nominal"
+    },
+    "y": {
+      "field": "Sherds",
+      "type": "quantitative",
+      "title": "Amount of sherds",
+      "axis": {"grid": false},
+      "scale": {"domain": [0, 1000000]}
+    },
+    "x": {
+      "field": "Fabric_Uncertain",
+      "type": "nominal",
+      "axis": {"title": ""}
+    },
+    "color":
+    {
+      "field": "Fabric_Uncertain",
+      "type": "nominal",
+      "scale": {"range": ["#ff7f00", "#1f78b4"]}
+    },
+    "tooltip": {
+      "field": "Uncertain_Sherds"
+    }
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"domainWidth": 1}
+  }
+}

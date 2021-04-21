@@ -4,7 +4,7 @@
   "width": 425,
   "height": 100,
   "data": {
-    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/53156a8fe914cc9cd234ce81807fbb73/raw/92dd759e0032df2b29a7bd53c97e7326f3fa729e/ICRATES_full2.csv",
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/4b6fec6fbf1e456f4e2227bd2d4962ea/raw/7f2c8edb3706c821a510e2d72836a0cf94a99cbd/ICRATES_full5.csv",
     "format": {
       "type": "csv",
       "parse": {
@@ -34,14 +34,14 @@
       "aggregate": "average",
       "field": "Longitude",
       "type": "quantitative",
-      "title": null,
+      "title": "Longitude",
       "scale": {"domain": [32.3, 34.5]}
     },
     "y": {
 
       "field": "Latitude",
       "type": "quantitative",
-      "title": null,
+      "title": "Latitude",
       "scale": {"domain": [34.5, 35.8]}
     }
   },
@@ -51,7 +51,7 @@
         {
           "name": "Harbour",
           "select": {"type": "point", "fields": ["Location_Harbour"]},
-          "bind": {"input": "select", "options": [null, "0", "1"], "name": "Harbour? (0/1)"}
+          "bind": {"input": "select", "options": [null, "Inland site", "Harbour"], "name": "Harbour filter:"}
         }
       ],
       "mark": {
