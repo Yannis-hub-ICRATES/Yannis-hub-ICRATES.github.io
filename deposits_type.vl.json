@@ -8,10 +8,10 @@
     "font": "arial"
   },
   "description": "Shows which deposit types are present per site.",
-  "width": "container",
+  "width": 325,
   "height": 400,
   "data": {
-    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/8d2604162a768ae6948e60738602aced/raw/3c32296d7e88622b78ab3f73aa64b26b1fcdc455/ICRATES_full6",
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/f1a21a9247034d62189b2e3b3373bc6a/raw/56486a5fcaf482c8b073f2a0d941e428ce4332e4/ICRATES_full8.csv",
     "format": {"type": "csv"}
   },
   "transform": [
@@ -58,12 +58,12 @@
         {
           "name": "Nature",
           "select": {"type": "point", "fields": ["Deposit_Nature_Deposit"]},
-          "bind": {"input": "select", "options": [null, "Not specified", "open", "closed", "Mixed"], "name": "Nature:"}
+          "bind": {"input": "select", "options": [null, "Not specified", "Open", "Closed", "Mixed"], "name": "Nature:"}
         },
         {
           "name": "Formation",
           "select": {"type": "point", "fields": ["Deposit_Formation"]},
-          "bind": {"input": "select", "options": [null, "Not specified", "primary", "secondary", "mixed"], "name": "Formation:"}
+          "bind": {"input": "select", "options": [null, "Not specified", "Primary", "Secondary", "Mixed"], "name": "Formation:"}
         },
         {
           "name": "Site_filter",
@@ -97,7 +97,7 @@
       ]
     },
     {
-      "mark": {"type": "text", "fontSize": 10, "dx": -15},
+      "mark": {"type": "text", "fontSize": 10, "dx": -13},
       "encoding": {
         "text": {
           "field": "Location_Abbreviation"

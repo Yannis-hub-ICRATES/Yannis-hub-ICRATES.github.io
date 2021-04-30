@@ -27,24 +27,32 @@
             <h1>Welcome to the Cyprus subset!</h1>
             <p>
                 For more information regarding the ICRATES database itself,
-                <br>see the database's Introduction and Overview pages (see the link at the bottom of this page).
+                <br>see the database's <strong>Introduction</strong> and <strong>Overview</strong> pages (see the links at the bottom of this page).
             </p>
         </div>
     </div>
     <div class="row text-header mx-4 mb-2">
         <div class="col-md-6">
             <p>
-                In the left-hand column, you can find an overview of all records associated with each of the 11
-                sites, as well as visualizations related to the origins of the data, and more specifically, the sites, deposits,
-                and publications from which they were drawn.
+                In the left-hand column, you can find visualizations related to the sites, deposits,
+                and publications from which the sherds were drawn.
             </p>
         </div>
         <div class="col-md-6">
             <p>
-                In the right-hand column, the focus lies on the tablewares present in the dataset, and
-                especially their distribution over the sites and over time. The distribution is displayed
-                both in absolute numbers as in proportions, as the amount of sherds per site is only a
-                <u>representative sample</u> of the assemblage of each site.
+                In the right-hand column, the distribution of the tablewares over the sites and over time is shown.
+            </p>
+        </div>
+    </div>
+    <div class="row warning-header mx-4 mb-2">
+        <div class="col-md-12">
+            <p>
+                <strong>Warning!</strong>
+                <br>
+                The total amount of ceramic sherds present in the ICRATES database is only a <u>representative sample</u> of the total amount of sherds found in the Roman East.
+                <br>
+                The amount of sherds per site is, therefore, only a representative sample of the assemblage of each site as well.
+                <br>
             </p>
         </div>
     </div>
@@ -52,65 +60,61 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6 window" id="buttons2">
+        <div class="col-md-6 window border_right">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-outline-primary" onclick="embedScatterPlot()">Scatter plot</button>
                 <button type="button" class="btn btn-outline-primary" onclick="embedTable()">Table</button>
             </div>
+            <img src="images/map_of_cyprus_final.png" alt="The map of Cyprus" width="465" height="350" class="map"/>
+            <div id="vis1"></div>
         </div>
-        <div class="col-md-6 window" id="buttons3">
+        <div class="col-md-6 window">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-outline-primary" onclick="embedFabricOverview()">Fabric Overview</button>
                 <button type="button" class="btn btn-outline-primary" onclick="embedSFUncertain()">Uncertain Sherds</button>
             </div>
+            <div class="window" id="vis2"></div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 window" id="first_window">
-            <img src="images/map_of_cyprus.png" alt="The map of Cyprus" width="465" height="350" class="map"/>
-            <div id="vis1"></div>
-        </div>
-        <div class="col-md-6 window" id="vis2">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 window" id="buttons">
+        <div class="col-md-6 window border_right">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-outline-primary" onclick="embedPublications()">Publications</button>
                 <button type="button" class="btn btn-outline-primary" onclick="embedDeposits()">Deposits</button>
             </div>
+            <div class="window" id="vis3"></div>
         </div>
         <div class="col-md-6 window">
-            <p><strong>Note:</strong> You can click on the bars in the graphs below to highlight fabrics. Try it out!</p>
+            <div class="window warning-header">
+                <p><strong>Note:</strong> You can click on the bars in the graphs below to highlight fabrics. Try it out!</p>
+            </div>
+            <div class="window" id="vis4"></div>
+            <div><p><strong>Note:</strong> The timeline ranges from 200 BC to 700 AD.</p></div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 window" id="vis3"></div>
-        <div class="col-md-6 window" id="vis4"></div>
-    </div>
-
 </div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 window border_right border_top background_color">
             <p><strong>Terminology:</strong>
-                <dl>
-                    <dt>Catalogue</dt>
-                    <dd>In a catalogue, the individual ceramics and ceramic types are described.</dd>
-                    <dt>Quantification</dt>
-                    <dd>In a quantification, the ceramics and ceramic types are summarized.</dd>
-                    <dt>Location</dt>
-                    <dd>A specific place or sector within a site.</dd>
-                    <dt>Deposit</dt>
-                    <dd>An archaeological unit, like a fill, a debris layer, a dump, ...</dd>
-                </dl>
+            <dl>
+                <dt>Catalogue</dt>
+                <dd>In a catalogue, the individual ceramics and ceramic types are described.</dd>
+                <dt>Quantification</dt>
+                <dd>In a quantification, the found ceramics and ceramic types are summarized.</dd>
+                <dt>Location</dt>
+                <dd>A specific place or sector within or near a site.</dd>
+                <dt>Deposit</dt>
+                <dd>An archaeological unit of deposition, like a fill, a debris layer, a dump, ...</dd>
+            </dl>
             </p>
         </div>
         <div class="col-md-6 window border_top background_color">
             <p>
             <dl>
                 <dt>Fabric</dt>
-                <dd>The tableware a sherd belongs to, usually characterized by a specific (chemical) composition.</dd>
+                <dd>The tableware a sherd belongs to, usually characterized by a specific composition, appearance and production centre.</dd>
                 <dt>Standard Form</dt>
                 <dd>The standard typological form of the sherd in question, as defined in the typochronology used in the dataset.</dd>
             </dl>
@@ -123,7 +127,7 @@
 </div>
 <div class="container-fluid footer">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-12">
             <h4>External links</h4>
             <ul>
                 <li>
@@ -134,7 +138,6 @@
                 </li>
                 <li>
                     <a href="https://archaeologydataservice.ac.uk/archives/view/icrates_lt_2018/downloads.cfm" target="_blank">Data files</a>
-
                 </li>
             </ul>
         </div>

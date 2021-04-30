@@ -8,10 +8,10 @@
     "font": "arial"
   },
   "description": "Shows which fabrics are present in the dataset, and in which sites they occur.",
-  "width": "container",
+  "width": 350,
   "height": 400,
   "data": {
-    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/4b6fec6fbf1e456f4e2227bd2d4962ea/raw/7f2c8edb3706c821a510e2d72836a0cf94a99cbd/ICRATES_full5.csv",
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/f1a21a9247034d62189b2e3b3373bc6a/raw/56486a5fcaf482c8b073f2a0d941e428ce4332e4/ICRATES_full8.csv",
     "format": {
       "type": "csv"}
   },
@@ -83,7 +83,6 @@
         },
         "tooltip": [
           {"field": "Location_name", "title": "Site"},
-          {"aggregate": "distinct", "field": "Deposit_ID", "title": "Deposits"},
           {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"}
         ]
       },
@@ -98,7 +97,6 @@
         "text": {"field": "Location_Abbreviation"},
         "tooltip": [
           {"field": "Location_name", "title": "Site"},
-          {"aggregate": "distinct", "field": "Deposit_ID", "title": "Deposits"},
           {"field": "Location_sherds", "type": "quantitative", "title": "Amount of sherds"}
         ]
       },

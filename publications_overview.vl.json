@@ -11,7 +11,7 @@
   "width": "container",
   "height": 400,
   "data": {
-    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/4b6fec6fbf1e456f4e2227bd2d4962ea/raw/7f2c8edb3706c821a510e2d72836a0cf94a99cbd/ICRATES_full5.csv",
+    "url": "https://gist.githubusercontent.com/Yannis-hub-ICRATES/f1a21a9247034d62189b2e3b3373bc6a/raw/56486a5fcaf482c8b073f2a0d941e428ce4332e4/ICRATES_full8.csv",
     "format": {"type": "csv"}
   },
   "transform": [
@@ -87,15 +87,16 @@
           }
         },
         "tooltip": [
-          {"field": "Publication_Year_of_Publication", "type": "quantitative", "title": "Year of publication"},
-          {"field": "Publ_Sherds", "type": "quantitative", "title": "Sherds"},
-          {"field": "Publication_Name", "title": "Name"},
           {"field": "Publication_ID", "title": "ID"},
+          {"field": "Publication_Name", "title": "Name"},
           {"field": "Publication_Years_of_Activity", "title": "Years of activity"},
+          {"field": "Publication_Team", "title": "Nationality of Team"},
+          {"field": "Publ_Sherds", "type": "quantitative", "title": "Sherds"},
           {"field": "Publication_Excavation", "title": "Excavation material?"},
           {"field": "Publication_Survey", "title": "Survey material?"},
           {"field": "Publication_Quantification", "title": "Quantification?"},
-          {"field": "Publication_Catalogue", "title": "Catalogue?"}
+          {"field": "Publication_Catalogue", "title": "Catalogue?"},
+          {"field": "Publication_Comment_Remarks", "title": "Comments"}
         ]
       },
       "transform": [
@@ -113,15 +114,16 @@
           "type": "quantitative"
         },
         "tooltip": [
-          {"field": "Publication_Year_of_Publication", "type": "quantitative", "title": "Year of publication"},
-          {"field": "Publ_Sherds", "type": "quantitative", "title": "Sherds"},
-          {"field": "Publication_Name", "title": "Name"},
           {"field": "Publication_ID", "title": "ID"},
+          {"field": "Publication_Name", "title": "Name"},
           {"field": "Publication_Years_of_Activity", "title": "Years of activity"},
+          {"field": "Publication_Team", "title": "Nationality of Team"},
+          {"field": "Publ_Sherds", "type": "quantitative", "title": "Sherds"},
           {"field": "Publication_Excavation", "title": "Excavation material?"},
           {"field": "Publication_Survey", "title": "Survey material?"},
           {"field": "Publication_Quantification", "title": "Quantification?"},
-          {"field": "Publication_Catalogue", "title": "Catalogue?"}
+          {"field": "Publication_Catalogue", "title": "Catalogue?"},
+          {"field": "Publication_Comment_Remarks", "title": "Comments"}
         ]
       },
       "transform": [
