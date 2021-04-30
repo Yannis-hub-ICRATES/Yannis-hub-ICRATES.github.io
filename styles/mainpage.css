@@ -14,13 +14,6 @@
     height: 150px;
 }
 
-#vis3, #buttons, #buttons2, #first_window {
-    width: 100%;
-    border-right-style: solid;
-    border-color: rgba(135, 206, 250, 0.5);
-    border-width: thick;
-}
-
 .test {
     width: 400px;
     height: 400px;
@@ -58,7 +51,6 @@
     background-color: rgba(135, 206, 250, 0.8);
     width: auto;
     border-radius: 20px;
-    color: azure;
 }
 
 .border_right {
@@ -83,4 +75,11 @@
 
 .font-smaller {
     font-size: medium;
+}
+
+.warning-header {
+    background-color: black;
+    width: auto;
+    border-radius: 20px;
+    color: azure;
 }
